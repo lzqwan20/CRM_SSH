@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+  <!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+	
+<struts>
+	<constant name="struts.objectFactory" value="spring"></constant>
+	<package name="crm" namespace="/" extends="struts-default" >
+		<global-exception-mappings>
+			<exception-mapping result="error" exception="java.lang.RuntimeException"></exception-mapping>
+		</global-exception-mappings>
+		<action name="UserAction_*" class="userAction" method="{1}" >
+			<result name="toHome" >/AdminLTE/index.html</result>
+			<result name="error" >/login.jsp</result>
+			<result name="login" >/Jump.jsp</result>
+		</action>
+		
+		<action name="CustomerAction_*" class="customerAction" method="{1}" >
+			<result name="edit"  >/jsp/customer/add.jsp</result>
+			<result name="list"  >/Jump.jsp</result>
+			<result name="toList" type="redirectAction" >
+				<param name="namespace">/</param>
+				<param name="actionName">CustomerAction_list</param>
+			</result>
+			<result name="toLogin">/login.jsp</result>
+			
+			<result name="toIndex" type="redirectAction" >
+				<param name="namespace">/</param>
+				<param name="actionName">CustomerAction_findAll</param>
+			</result>
+			<result name="toProduct">/product_list.jsp</result>
+		</action>
+		
+		<!-- 数据字典Action -->
+		<action name="BaseDictAction" class="baseDictAction" method="execute" ></action>
+	</package>
+</struts>
+	
